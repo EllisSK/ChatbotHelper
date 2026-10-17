@@ -26,7 +26,7 @@ class BundleResult:
 
 
 def _heading(title: str, format: str, level: int = 2) -> str:
-    return f"{'#' * level} {title}\n\n" if format == "md" else f"{title.upper()}\n\n"
+    return f"{'#' * level} {title}\n\n" if format == "md" else f"{title}\n\n"
 
 
 def _validate(files: Mapping[str, SourceFile], budget: int, format: str) -> None:

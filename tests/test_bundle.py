@@ -33,6 +33,17 @@ def test_source_preserved_with_embedded_fences_crlf_and_no_final_newline() -> No
     assert result.estimated_tokens == (result.characters + 3) // 4
 
 
+@pytest.mark.parametrize("format", ["txt", "md"])
+def test_source_headings_retain_exact_path_case(format: str) -> None:
+    path = "src/MyPackage/billing.py"
+    files = sources(**{path: "amount = 10\n"})
+    result = build_bundle(
+        files, analyse(files), [Candidate(path, 1, (), pinned=True)], task="Review", format=format
+    )
+    assert f"File: {path}\n" in result.content
+    assert "File: SRC/MYPACKAGE/BILLING.PY" not in result.content
+
+
 def test_hard_budget_skips_whole_unpinned_file_and_preserves_reason() -> None:
     files = sources(**{"small.py": "answer = 42\n", "large.py": "# lots of source\n" * 500})
     result = build_bundle(
@@ -129,7 +140,7 @@ def test_additional_context_is_exact_and_mandatory() -> None:
         {}, {}, [], task="Debug", extra_context={"Test output": context}, format="txt"
     )
     assert context in result.content
-    assert "ADDITIONAL CONTEXT: TEST OUTPUT" in result.content
+    assert "Additional context: Test output" in result.content
     with pytest.raises(BudgetError, match="required additional context"):
         build_bundle({}, {}, [], task="Debug", extra_context={"Log": "x" * 3000}, budget=1500)
 
