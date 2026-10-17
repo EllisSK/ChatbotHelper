@@ -32,6 +32,9 @@ Exports are saved under the selected project's `.chatbot-helper` folder by defau
 The terminal prints the full destination. Upload the file in your browser chat and
 include your task in the message. ChatbotHelper does not upload or send anything.
 
+See the [chat workflow and copy-and-paste prompts](docs/prompts.md) for messages
+to send with each export, requesting more files, and reviewing updated source.
+
 ## Choosing context
 
 Task suggestions combine filename, symbol, and source-text matches with direct
@@ -68,6 +71,8 @@ Choose **Files requested by Copilot**, paste that list, and finish with a line
 containing `END`. Markdown bullets, backticks, and Windows path separators are
 supported. Review the resulting selection and upload the new source bundle.
 The overview is navigation material; it does not contain full source implementations.
+The [overview-first walkthrough](docs/prompts.md#overview-first-workflow) includes
+the prompts for both uploads.
 
 ## Commands
 
